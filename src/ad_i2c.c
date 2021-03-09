@@ -30,7 +30,7 @@ uint8_t setup_ad()
     //Set device for two channel AUTO sequence - OPMODE_SEL 
     ads7142_write_reg(I2C_ADDR, 0x1C, 0x04);
     i2c_data = ads7142_read_reg(0x18, 0x1C);
-    printf("OPMODE set to: 0x%02X should be 0x%02X\n", i2c_data, 0x04);
+    printf("OPMODE set to: 0x%02X should be 0x%02X\n\n", i2c_data, 0x04);
 
     return 1;
 }

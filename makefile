@@ -9,15 +9,17 @@ CC = gcc
 CFLAGS                  = -Wall 
 CFLAGS                  += -g
 
-LDFLAGS                 = -l bcm2835 
+LDFLAGS                 = -lbcm2835 -lpigpio
 
 # define the C source files
 SRCS                            = pv_sense.c
 SRCS                            += 1wire.c
 SRCS                            += ad_i2c.c
+SRCS                            += leak_gpio.c
 
 DEPS                            = 1wire.h
 DEPS                            += ad_i2c.h
+DEPS                            += leak_gpio.h
 
 OBJS := $(SRCS:%.c=$(BUILD_DIR)/%.o)
 

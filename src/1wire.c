@@ -27,6 +27,11 @@ int read_eds(char * basedevicedir, struct MRead_t * mread ) {
         }
 
         fscanf(fptr, "%f", &(mread->data[i]) );
+
+        if ( strcmp(mread->names[i],"pressure") == 0 ) {
+            mread->data[i] = mread->data[i] * 0.0145038; // milibar to psi
+        }
+
         fclose(fptr);
     }
 
