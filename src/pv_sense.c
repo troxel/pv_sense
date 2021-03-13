@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
+#include <sys/file.h>
 
 #include <stdint.h>
 
@@ -32,6 +33,17 @@ int main(int argc, char *argv[])
 
     signal(SIGINT, intHandler); 
     signal(SIGTERM, intHandler); 
+
+    int pidfile = open("/run/pv_sense.pid", O_CREAT | O_RDWR, 0666);
+    int rc = flock(pidfile, LOCK_EX | LOCK_NB);
+    if(rc) {
+        if(EWOULDBLOCK == errno) {
+            printf("\nAnother instance of pv_sense is running\n");
+            printf("Kill it first before starting a new one.\n"); 
+            printf("hint: >killall pv_sense.exe\n\n");
+            exit(0);
+        }
+    }
 
     // --- Declare and initialize data structures --
     struct MRead_t pth;
