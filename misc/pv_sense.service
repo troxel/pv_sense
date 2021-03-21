@@ -1,0 +1,12 @@
+[Unit]
+Description=Pressure Vessel Environmental and Leak Sensing
+After=network.target
+
+[Service]
+User=root
+# set 2 second sleep time until deployment
+ExecStart=/home/pv1/pv_sense/bin/pv_sense.exe -s 2
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
