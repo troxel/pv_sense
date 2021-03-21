@@ -5,8 +5,9 @@ After=network.target
 [Service]
 User=root
 # set 2 second sleep time until deployment
-ExecStart=/home/pv1/pv_sense/bin/pv_sense.exe -s 2
-ExecReload=/bin/kill -HUP $MAINPID
+ExecStart=/home/pv1/pv_sense/bin/pv_sense.exe -s 900
+ExecStop=/bin/pkill -9 pv_sense.exe
+ExecReload=/bin/pkill -9 pv_sense.exe
 
 [Install]
 WantedBy=multi-user.target
